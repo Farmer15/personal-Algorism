@@ -16,26 +16,25 @@ var hasPathSum = function(root, targetSum) {
     return false;
   }
 
-  const resultArray = [];
+  return sumTreePathNode(root, 0) ?? false;
 
-  sumTreePathNode(root, 0);
-  console.log(resultArray);
-  return resultArray.includes(targetSum);
-  
   function sumTreePathNode(root, sum) {
     const confirmSum = sum + root.val;
     
     if (root.left) {
-      sumTreePathNode(root.left, confirmSum);
+      if (sumTreePathNode(root.left, confirmSum)) {
+        return true;
+      };
     }
 
     if (root.right) {
-      sumTreePathNode(root.right, confirmSum);
+      if (sumTreePathNode(root.right, confirmSum)) {
+        return true;
+      }
     }
 
-    if (!root.left && !root.right) {
-      resultArray.push(confirmSum);
-      return;
-    } 
+    if (!root.left && !root.right && confirmSum === targetSum) {
+      return true;
+    }
   }
 };
