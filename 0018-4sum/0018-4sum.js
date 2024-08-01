@@ -9,7 +9,7 @@ var fourSum = function(nums, target) {
   let leftLeft = 0;
 
   while (leftLeft < sortedNums.length - 3) {
-    if (leftLeft !== sortedNums.length - 4 && sortedNums[leftLeft] === sortedNums[leftLeft + 1]) {
+    if (sortedNums[leftLeft] === sortedNums[leftLeft - 1]) {
       leftLeft++;
       continue;
     }
@@ -19,8 +19,9 @@ var fourSum = function(nums, target) {
     let right = sortedNums.length - 1;
 
     while (left < sortedNums.length - 2) {
-      if (left !== sortedNums.length - 3 && sortedNums[left] === sortedNums[left + 1]) {
+      if (left - 1 !== leftLeft && sortedNums[left] === sortedNums[left - 1]) {
         left++;
+        middle = left + 1;
         continue;
       }
 
@@ -45,7 +46,6 @@ var fourSum = function(nums, target) {
         right = sortedNums.length - 1;
       }
     }
-
     leftLeft++;
   }
 
