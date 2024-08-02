@@ -18,7 +18,6 @@ var longestPalindrome = function(s) {
       count--;
       continue;
     }
-
     start++;
     end++;
   }
