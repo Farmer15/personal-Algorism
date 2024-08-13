@@ -30,11 +30,11 @@ var search = function(nums, target, start = 0, end = nums.length - 1) {
   }
 
   if (middleElement >= startElement) {
-    return target >= startElement && target <= middleElement ? searchTargetInSortedArr(nums, target, start, middleIndex - 1) : search(nums, target, middleIndex + 1, end);
+    return target >= startElement && target <= middleElement ? search(nums, target, start, middleIndex - 1) : search(nums, target, middleIndex + 1, end);
   }
 
   if (middleElement <= startElement) {
-    return target <= endElement && target >= middleElement ? searchTargetInSortedArr(nums, target, middleIndex + 1, end) : search(nums, target, start, middleIndex - 1);
+    return target <= endElement && target >= middleElement ? search(nums, target, middleIndex + 1, end) : search(nums, target, start, middleIndex - 1);
   }
 };
 
