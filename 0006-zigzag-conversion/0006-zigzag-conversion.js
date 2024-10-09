@@ -4,27 +4,26 @@
  * @return {string}
  */
 var convert = function(s, numRows) {
-  if (numRows === 1) return s;
-
-  const resultArray = Array(numRows).fill("");
-  let resultIndex = 0;
-  let index = 0;
-  let interval = 1;
-  
-  while (index < s.length) {
-    resultArray[resultIndex] += s[index];
-
-    if (resultIndex === numRows - 1) {
-      interval = -1;
+    if (numRows === 1 || numRows >= s.length) {
+        return s;
     }
 
-    if (resultIndex === 0) {
-      interval = 1;
+    let idx = 0, d = 1;
+    const rows = new Array(numRows).fill().map(() => []);
+
+    for (const char of s) {
+        rows[idx].push(char);
+        if (idx === 0) {
+            d = 1;
+        } else if (idx === numRows - 1) {
+            d = -1;
+        }
+        idx += d;
     }
 
-    index++;
-    resultIndex += interval;
-  }
-  console.log(resultArray);
-  return resultArray.join("");
+    for (let i = 0; i < numRows; i++) {
+        rows[i] = rows[i].join('');
+    }
+
+    return rows.join('');   
 };
