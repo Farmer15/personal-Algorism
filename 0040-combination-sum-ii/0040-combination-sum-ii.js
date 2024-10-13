@@ -6,28 +6,28 @@
 var combinationSum2 = function(candidates, target) {
   const resultArray = [];
 
-  getCombinationSum(candidates.sort((a, b) => a - b), target, []);
+  candidates.sort((a, b) => a - b)
+
+  getCombinationSum(candidates, target, [], 0);
 
   return resultArray;
   
-  function getCombinationSum(totalArray, currentTarget, combination) {
+  function getCombinationSum(totalArray, currentTarget, combination, initial) {
     if (currentTarget === 0) {
-        if (!JSON.stringify(resultArray).includes(JSON.stringify(combination.sort((a, b) => a - b)))) {
-          resultArray.push(combination);
-        }
+        resultArray.push([...combination]);
         return;
     }
 
-    if (currentTarget < 0) {
-      return;
-    }
-
-    for (let i = 0; i < totalArray.length; i++) {
-      if (totalArray[i] === totalArray[i - 1]) {
+    for (let i = initial; i < totalArray.length; i++) {
+      if (i !== initial && totalArray[i] === totalArray[i - 1]) {
         continue;
       }
 
-      getCombinationSum(totalArray.slice(i + 1), currentTarget - totalArray[i], [...combination, totalArray[i]])
+      if (totalArray[i] > currentTarget) {
+        break;
+      }
+      
+      getCombinationSum(totalArray, currentTarget - totalArray[i], [...combination, totalArray[i]], i + 1)
     }
   }
 };
