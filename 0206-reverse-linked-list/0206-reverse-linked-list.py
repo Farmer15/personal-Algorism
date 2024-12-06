@@ -7,11 +7,12 @@ class Solution:
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
         prev = head
         reverse = None
+        temp = copy.deepcopy(head)
 
         while prev:
-            temp = ListNode(prev.val, prev.next)
+            temp = temp.next
             prev.next = reverse
             reverse = prev
-            prev = temp.next
+            prev = temp
         
         return reverse
