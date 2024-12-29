@@ -13,19 +13,8 @@ class Solution:
         result_val = []
         
         while floor:
-            next_floor = deque([])
             result_val.append(floor[-1].val)
-
-            while floor:
-                current_node = floor.popleft()
-                
-                if current_node.left:
-                    next_floor.append(current_node.left)
-                
-                if current_node.right:
-                    next_floor.append(current_node.right)
-            
-            floor = next_floor
+            floor = deque(child for currnt_node in floor for child in (currnt_node.left, currnt_node.right) if child)
 
         return result_val
         
