@@ -1,5 +1,5 @@
-from functools import reduce
-
 class Solution:
     def findCenter(self, edges: List[List[int]]) -> int:
-        return list(reduce(lambda acc_intersection, set_edges: set(acc_intersection) & set(set_edges), edges))[0]
+        first_edge, second_edge = edges[0], edges[1]
+
+        return first_edge[0] if first_edge[0] in second_edge else first_edge[1]
