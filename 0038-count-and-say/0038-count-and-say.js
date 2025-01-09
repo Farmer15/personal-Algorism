@@ -30,4 +30,4 @@ function getCountAndSay(str) {
   }
 
   return result;
-}
+};
