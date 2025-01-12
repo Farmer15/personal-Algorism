@@ -38,6 +38,8 @@ class Solution:
                             return False
                         else:
                             confirm_dic[num] = 1
+        
+            index += 1
             
-            return True
+        return True
             
