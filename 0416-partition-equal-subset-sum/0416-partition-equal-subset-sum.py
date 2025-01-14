@@ -4,18 +4,18 @@ class Solution:
 
         if total_sum % 2:
             return False
-
+            
         dp = [True] + [False] * (total_sum // 2)
 
-        for sums in range(total_sum // 2 + 1):
-            for num in nums:
+        for num in nums:
+            for sums in range(total_sum // 2, -1 , -1):
+                if dp[sums]:
+                    continue
                 if num == sums:
                     dp[sums] = True
-                    break
                 elif sums >= num:
                     dp[sums] = dp[sums - num]
-
-        print(dp)
+        
         return dp[total_sum // 2]
 
 
