@@ -1,6 +1,6 @@
 class Solution:
     def myAtoi(self, s: str) -> int:
-        result = ""
+        result = 0
         is_positive = True
         s = s.strip()
 
@@ -14,18 +14,14 @@ class Solution:
                 continue
             
             if char.isdigit():
-                result += char
+                result = 10 * result + int(char)
+
+                if result > 2 ** 31 - 1:
+                    result = 2 ** 31 - 1 if is_positive else 2 ** 31
+                    break
             else:
                 break
-
-        if not result:
-            return 0
-
-        result = int(result)
-
-        if result > 2 ** 31 - 1:
-            result = 2 ** 31 - 1 if is_positive else 2 ** 31
-        
+      
         return result if is_positive else -1 * result
         
             
