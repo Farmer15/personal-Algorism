@@ -1,12 +1,16 @@
+from collections import defaultdict
+
 class Solution:
+    def __init__(self):
+        self.dp = defaultdict(lambda : defaultdict(lambda : 0))
+
     def uniquePaths(self, m: int, n: int) -> int:
-        return self.combination((m + n - 2), (n - 1))
+        for row in range(1, m + 1):
+            for column in range(1, n + 1):
+                if row == 1 and column == 1:
+                    self.dp[row][column] = 1
+                    continue
+                
+                self.dp[row][column] = self.dp[row - 1][column] + self.dp[row][column - 1]
 
-    def factorial(self, num: int) -> int:        
-        return num * self.factorial(num - 1) if num > 1 else 1
-    
-    def combination(self, num: int, represent: int) -> int:
-        if not num:
-            return 1 if not represent else None
-
-        return self.factorial(num) // (self.factorial(represent) * self.factorial(num - represent))
+        return self.dp[m][n]
