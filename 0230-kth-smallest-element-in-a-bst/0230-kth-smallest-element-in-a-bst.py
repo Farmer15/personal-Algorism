@@ -7,21 +7,20 @@
 class Solution:
     def __init__(self):
         self.order = 0
-        self.result_val = 0
+        self.result_val = None
 
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
-        if self.result_val:
+        if self.result_val or root is None:
             return
 
-        if root.left:
-            self.kthSmallest(root.left, k)
+        self.kthSmallest(root.left, k)
         
         self.order += 1
     
         if self.order == k:
             self.result_val = root.val
+            return self.result_val
         
-        if root.right:
-            right_result = self.kthSmallest(root.right, k)
+        self.kthSmallest(root.right, k)
 
         return self.result_val
