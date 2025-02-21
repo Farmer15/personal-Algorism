@@ -7,7 +7,7 @@ class Solution:
             for posB in range(len(nums) - 1, posA, -1):
                 if nums[posB] > nums[posA]:
                     [nums[posB], nums[posA]] = [nums[posA], nums[posB]]
-                    nums[posA+1:] = sorted(nums[posA+1:])
+                    nums[posA+1:] = reversed(nums[posA+1:])
                     return
 
-        return nums.sort()
+        nums.reverse()
