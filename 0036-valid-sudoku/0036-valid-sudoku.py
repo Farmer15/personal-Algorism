@@ -1,45 +1,27 @@
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
-        AREA_CENTER = [
-            (1, 1), (1, 4), (1, 7),
-            (4, 1), (4, 4), (4, 7),
-            (7, 1), (7, 4), (7, 7)
-        ]
+        areaCental = [[1, 1], [1, 4], [1, 7], [4, 1], [4, 4], [4, 7], [7, 1], [7, 4], [7, 7]]
+        directions = [[-1, -1] , [0, -1], [1, -1], [-1, 0], [0, 0], [1, 0], [-1, 1], [0, 1], [1, 1]]
 
-        AREA_DIRECTION = [
-            (-1, -1), (0, -1), (1, -1),
-            (-1, 0), (0, 0), (1, 0),
-            (-1, 1), (0, 1), (1, 1)
-        ]
+        cental_list = [[board[center[0] + direction[0]][center[1] + direction[1]] for direction in directions] for center in areaCental]
+        row_list = board
+        column_list = [[board[row][column] for row in range(9)] for column in range(9)]
 
-        index = 0
-
-        while index < 9:
-            row_list = board[index]
-            column_list = [
-                board[0][index],
-                board[1][index],
-                board[2][index],
-                board[3][index],
-                board[4][index],
-                board[5][index],
-                board[6][index],
-                board[7][index],
-                board[8][index]
-            ]
-            area_list = list(map(lambda direction: board[direction[0] + AREA_CENTER[index][0]][direction[1] + AREA_CENTER[index][1]], AREA_DIRECTION))
-
-            for each_list in [row_list, column_list, area_list]:
-                confirm_dic = {}
-
-                for num in each_list:
-                    if num != ".":
-                        if num in confirm_dic:
-                            return False
-                        else:
-                            confirm_dic[num] = 1
+        for target_list in cental_list + row_list + column_list:
+            seen = set()
+            for num in target_list:
+                if num == ".":
+                    continue
+                
+                if num in seen:
+                    return False
+                else:
+                    seen.add(num)
         
-            index += 1
-            
         return True
+
+                
+
+
             
+
