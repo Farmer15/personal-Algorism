@@ -6,5 +6,4 @@ class Solution:
             key = tuple(sorted(word))
             result[key].append(word)
         
-        print(result)
         return list(result.values())
