@@ -11,28 +11,27 @@
  * @param {number[]} inorder
  * @return {TreeNode}
  */
-var buildTree = function(preorder, inorder, rootIndex = 0, start = 0, end = preorder.length - 1) {
-    if (end < start) {
-        return null;
+var buildTree = function(preorder, inorder) {
+    const inorderMap = new Map();
+
+    for (let i = 0; i < inorder.length; i++) {
+        inorderMap.set(inorder[i], i);
     }
 
-    if (end === start) {
-        return new TreeNode(inorder[start])
-    }
-
-    const rootVal = preorder[rootIndex];
-    const root = new TreeNode(rootVal);
-    let inorderRootIndex;
-
-    for (const index in inorder) {
-        if (inorder[index] === rootVal) {
-            inorderRootIndex = Number(index);
-            break;
+    function buildTree(preStart, start, end) {
+        if (start > end) {
+            return null;
         }
-    }
 
-    root.left = buildTree(preorder, inorder, rootIndex + 1, start, inorderRootIndex - 1);
-    root.right = buildTree(preorder, inorder, rootIndex + (inorderRootIndex - start) + 1, inorderRootIndex + 1, end);
+        const rootVal = preorder[preStart];
+        const root = new TreeNode(rootVal);
+        const inorderRootIndex = inorderMap.get(rootVal);
 
-    return root;
+        root.left = buildTree(preStart + 1, start, inorderRootIndex - 1);
+        root.right = buildTree(preStart + (inorderRootIndex - start) + 1, inorderRootIndex + 1, end);
+
+        return root;
+    };
+
+    return buildTree(0, 0, inorder.length - 1);
 };
