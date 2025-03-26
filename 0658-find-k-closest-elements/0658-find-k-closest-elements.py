@@ -15,13 +15,13 @@ class Solution:
             if start <= 0:
                 return 0
             
+            if start > len(arr) - 1:
+                return len(arr) - 1
+            
             if arr[start - 1] - num < num - arr[start]:
                 return start
             else:
                 return start - 1
-
-        if len(arr) == 1:
-            return arr
 
         middle = search_near_index(arr, x)
         left = middle - 1
