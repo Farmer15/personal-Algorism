@@ -1,22 +1,30 @@
-class Solution(object):
-    def countBits(self, n):
-        """
-        :type n: int
-        :rtype: List[int]
-        """
-        result = []
+class Solution:
+    def countBits(self, n: int) -> List[int]:
+        target_n = n
+        self.dp = [0] + [None] * n
 
-        for num in range(0, n + 1):
-            num_binary = bin(num)
-            count = 0
+        while target_n > 0:
+            if not target_n in self.dp:
+                self.get_bits_counting(target_n)
 
-            for binary_num in num_binary:
-                if binary_num == "1":
-                    count += 1
-            
-            result.append(count)
+            target_n -= 1
         
-        return result
-                
-            
+        return self.dp
+
+    def get_bits_counting(self, num):
+        if not self.dp[num] is None:
+            return self.dp[num]
         
+        share = num // 2
+        remainder = num % 2
+        self.dp[num] = remainder + self.get_bits_counting(share)
+
+        return self.dp[num]
+
+
+        
+        
+
+        
+
+
